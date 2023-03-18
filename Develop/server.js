@@ -17,3 +17,15 @@ app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'public/notes.
 app.listen(PORT, () => {
     console.log(`App listening at http://localhost:${PORT}`)
 });
+
+//require the db.json file and save into variable 
+const db = require('./db/db.json');
+
+//create GET /api/notes endpoint that returns current notes data in json
+app.get('/api/notes', (req, res) => res.json(db));
+
+// app.post('/notes', (req, res) => {
+//     if (req.body) {
+//         pass;
+//     }
+// }
