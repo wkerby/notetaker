@@ -10,6 +10,10 @@ app.use(express.static('public'));
 //set up GET route for home page
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
 
+//set up GET route for /notes page
+
+app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'public/notes.html')));
+
 app.listen(PORT, () => {
     console.log(`App listening at http://localhost:${PORT}`)
 });
