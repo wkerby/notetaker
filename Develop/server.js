@@ -27,11 +27,13 @@ app.listen(PORT, () => {
     console.log(`App listening at http://localhost:${PORT}`)
 });
 
-//require the db.json file and save into variable 
-const db = require('./db/db.json');
 
 //create GET /api/notes endpoint that returns current notes data in json
-app.get('/api/notes', (req, res) => res.json(db));
+app.get('/api/notes', (req, res) => {
+    const db = require('./db/db.json'); //require the db.json file and save into variable 
+    const data = JSON.parse(fs.readFileSync('./db/db.json'));
+    res.json(data);
+});
 
 app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received to add a review`);
@@ -59,7 +61,7 @@ app.post('/api/notes', (req, res) => {
                 parsedNotes.push(newNote);
 
                 //Write updated notes back to the db.json file
-                fs.writeFile(`./db/db.json`, JSON.stringify(parsedNotes, null, 4), (err) => {
+                fs.writeFileSync(`./db/db.json`, JSON.stringify(parsedNotes, null, 4), (err) => {
                     err
                         ? console.error(err)
                         : console.info("Successfully updated notes!")
