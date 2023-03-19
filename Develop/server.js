@@ -31,13 +31,12 @@ app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received to add a review`);
 
     // Destructuring assignment for the items in req.body
-    const { title, text, id } = req.body;
-    if (title && text && id) {
+    const { title, text } = req.body;
+    if (title && text) {
         //create a newNote object
         const newNote = {
             title,
-            text,
-            id
+            text
         };
 
         //Obtain existing notes
