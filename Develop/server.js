@@ -38,12 +38,13 @@ app.post('/api/notes', (req, res) => {
     console.log(req.body);
 
     // Destructuring assignment for the items in req.body
-    const { title, text } = req.body;
+    const { title, text, id } = req.body;
     if (title && text) {
         //create a newNote object
         const newNote = {
             title,
-            text
+            text,
+            id
         };
 
         //Obtain existing notes

@@ -11,6 +11,12 @@ if (window.location.pathname === '/notes') {
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
 }
+//create function to generate random id that is "n" digits
+const idGen = digits => {
+  let myNum = Math.random();
+  myNum = Math.floor(myNum * 10 ** digits);
+  return myNum;
+}
 
 // Show an element
 const show = (elem) => {
@@ -70,6 +76,7 @@ const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
+    id: idGen(10)
   };
   // console.log(`${newNote}`);
   saveNote(newNote).then(() => {

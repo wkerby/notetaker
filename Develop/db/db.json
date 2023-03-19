@@ -1,34 +1,7 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text"
-    },
-    {
-        "title": "This is a test",
-        "text": "This is another test"
-    },
-    {
-        "title": "I am testing notes",
-        "text": "I am also testing notes"
-    },
-    {
-        "title": "What is going on",
-        "text": "Nothing"
-    },
-    {
-        "title": "TEST",
-        "text": "testing functionality of the save button"
-    },
-    {
-        "title": "I have a test",
-        "text": "I have a test in mind"
-    },
-    {
-        "title": "I am done writing tests",
-        "text": "I am tired of work"
-    },
-    {
-        "title": "This is another test",
-        "text": "This is another test"
+        "title": "ID number test",
+        "text": "This note is a test",
+        "id": 9070139950
     }
 ]
