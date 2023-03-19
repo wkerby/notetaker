@@ -1,3 +1,6 @@
+//import uuid functionality
+const { v4 } = require('uuid');
+
 let noteTitle;
 let noteText;
 let saveNoteBtn;
@@ -70,6 +73,7 @@ const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
+    id: v4()
   };
   saveNote(newNote).then(() => {
     getAndRenderNotes();

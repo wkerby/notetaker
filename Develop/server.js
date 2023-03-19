@@ -1,3 +1,6 @@
+//require fs
+const fs = require('fs');
+
 //establish connection with express package
 const express = require('express');
 const path = require('path');
@@ -24,8 +27,52 @@ const db = require('./db/db.json');
 //create GET /api/notes endpoint that returns current notes data in json
 app.get('/api/notes', (req, res) => res.json(db));
 
-// app.post('/notes', (req, res) => {
-//     if (req.body) {
-//         pass;
-//     }
-// }
+app.post('/api/notes', (req, res) => {
+    console.info(`${req.method} request received to add a review`);
+
+    // Destructuring assignment for the items in req.body
+    const { title, text, id } = req.body;
+    if (title && text && id) {
+        //create a newNote object
+        const newNote = {
+            title,
+            text,
+            id
+        };
+
+        //Obtain existing notes
+        fs.readFile(`./db/db.json`, 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+            }
+            else {
+                //Convert string into JSON object
+                const parsedNotes = JSON.parse(data);
+                //Push the new note
+                parsedNotes.push(newNote);
+
+                //Write updated notes back to the db.json file
+                fs.writeFile(`./db/db.json`, JSON.stringify(parsedNotes, null, 4), (err) => {
+                    err
+                        ? console.error(err)
+                        : console.info("Successfully updated notes!")
+                });
+            }
+        });
+
+        const response = {
+            status: 'success',
+            body: newNote,
+        };
+
+        console.log(response);
+        res.status(201).json(response);
+    }
+
+    else {
+        res.status(500).json('Error posting new note.');
+    }
+});
+
+
+
