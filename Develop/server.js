@@ -13,6 +13,8 @@ app.use(express.static('public'));
 //allow server to work with JSON data
 app.use(express.json())
 
+//allow server to work with url-encoded data
+app.use(express.urlencoded({ extended: true }));
 
 //set up GET route for home page
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
