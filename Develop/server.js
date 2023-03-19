@@ -31,14 +31,7 @@ app.listen(PORT, () => {
 //create GET /api/notes endpoint that returns current notes data in json
 app.get('/api/notes', (req, res) => {
     let data = JSON.parse(fs.readFileSync('./db/db.json')); //reads the db.json file updated when POST or DELETE api route is called
-    // fs.readFile('./db/db.json', 'utf8', (err, data) => {
-    //     if (err) {
-    //         console.error(err);
-    //     }
-    //     else {
-    //         res.json(JSON.parse(data));
-    //     }
-    // });
+
     res.json(data);
 });
 
