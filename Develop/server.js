@@ -30,8 +30,7 @@ app.listen(PORT, () => {
 
 //create GET /api/notes endpoint that returns current notes data in json
 app.get('/api/notes', (req, res) => {
-    const db = require('./db/db.json'); //require the db.json file and save into variable 
-    const data = JSON.parse(fs.readFileSync('./db/db.json'));
+    const data = JSON.parse(fs.readFileSync('./db/db.json')); //reads the db.json file updated when POST api route is called
     res.json(data);
 });
 
