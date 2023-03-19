@@ -30,7 +30,15 @@ app.listen(PORT, () => {
 
 //create GET /api/notes endpoint that returns current notes data in json
 app.get('/api/notes', (req, res) => {
-    let data = JSON.parse(fs.readFileSync('./db/db.json')); //reads the db.json file updated when POST api route is called
+    let data = JSON.parse(fs.readFileSync('./db/db.json')); //reads the db.json file updated when POST or DELETE api route is called
+    // fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    //     if (err) {
+    //         console.error(err);
+    //     }
+    //     else {
+    //         res.json(JSON.parse(data));
+    //     }
+    // });
     res.json(data);
 });
 
@@ -84,28 +92,30 @@ app.post('/api/notes', (req, res) => {
 
 //create DELETE route
 app.delete('/api/notes/:id', (req, res) => {
-    console.info(`${req.method} request received to delete a note`);
     const queryId = req.params.id;
-    console.log(queryId);
-    // if (queryId) {
-    //     let data = JSON.parse(fs.readFileSync('./db/db.json'));
-    //     for (let i = 0; i < data.length; i++) {
-    //         if (data[i].id == queryId) {
-    //             try {
-    //                 data.splice(i, 0, "{}");
-    //             }
-    //             catch {
-    //                 console.log("There was an error deleting note from JSON file")
-    //             }
+    console.info(`${req.method} request received to delete note ${queryId}`);
+    if (queryId) {
+        let data = JSON.parse(fs.readFileSync('./db/db.json'));
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].id == queryId) {
+                try {
+                    data.splice(i, 1);//remove the object with matching ID from list of note objects
+                }
+                catch {
+                    console.log("There was an error deleting note from JSON file")
+                }
+            }
+        }
 
-    //             fs.writeFileSync(`./db/db.json`, JSON.stringify(data, null, 4), (err) => {
-    //                 err
-    //                     ? console.error(err)
-    //                     : console.info("Successfully updated notes!")
-    //             });
-    //         }
-    //     }
-    // }
+        fs.writeFileSync(`./db/db.json`, JSON.stringify(data, null, 4), (err) => {
+            err
+                ? console.error(err)
+                : console.info("Successfully deleted note!")
+        });
+        console.log("Finished re-writing the file!")
+    }
+    res.status(204).send();
 });
+
 
 
